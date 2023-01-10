@@ -330,5 +330,17 @@ a{
 	.write{
 		width: 95%;
 	}
+	.form{
+		margin: 0;
+	}
+	.inp{
+		width: 100%;
+	}
+	.addgoal{
+		width: 90%;
+		justify-content: center;
+		align-items: center;
+		
+	}
 	
 }
