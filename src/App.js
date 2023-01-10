@@ -1,24 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Weekplan from './components/Weekplan';
+import Todolist from './components/Todolist';
+import Performance from './components/Performance';
+import Backlog from './components/Backlog';
+import Notes from './components/Notes';
+import { useState } from 'react';
 
 function App() {
+  const [day, setDay] = useState(1);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Navbar setday={setDay}></Navbar>
+      <Routes>
+        <Route path='/' element={<Weekplan></Weekplan>}></Route>
+        <Route path='/todo' element={<Todolist day={day}></Todolist>}></Route>
+        <Route path='/performance' element={<Performance></Performance>}></Route>
+        <Route path='/backlog' element={<Backlog></Backlog>}></Route>
+        <Route path='/notes' element={<Notes></Notes>}></Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
