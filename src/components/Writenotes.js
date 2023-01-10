@@ -12,7 +12,7 @@ function Writenotes() {
         fontSize:"20px"
     }
   return (
-    <div style={{padding:"1%", width:"50vw", height:""}}>
+    <div className='write' style={{padding:"1%", height:""}}>
       <h2 style={{color:"white"}}>Write Notes</h2>
       <textarea style={inpstyle}></textarea>
     </div>

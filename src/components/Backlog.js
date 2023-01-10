@@ -43,7 +43,7 @@ function Backlog() {
                   <div>{item.task}</div>
                   <div>{item.des}</div>
                 </td>
-                <td>{item.hrs}</td>
+                <td>{Math.round(item.hrs)}</td>
               </tr>
             })}
           </table>

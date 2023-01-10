@@ -246,3 +246,89 @@ a{
 	50%  { transform: translate3d(0, -24px, 0) scale(.5); }
 	100% { transform: translate3d(0, 0, 0) scale(1); }
 }
+
+.burger{
+	display: none;
+}
+.menu ul{
+	position: absolute;
+	top: 70%;
+}
+.daysdiv{
+	width: 50%;
+}
+.progstyle{
+	width:15vw;
+}
+.day{
+	margin-bottom: 40px;
+}
+.write{
+	width: 50vw;
+}
+.draw{
+	width: 50%;
+}
+
+@media screen and (max-width:600px){
+	body{
+		overflow-x: hidden;
+	}
+	.nav{
+		display: none;
+	}
+	.burger{
+		display: block;
+	}
+	.nav-ele{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		padding: 20px;
+	}
+	.nav-ele *{
+		margin-top: 20px;
+	}
+	.toggle{
+		margin: 0;
+	}
+	.upper{
+		flex-direction: column;
+	}
+	.upper *{
+		margin-bottom: 20px;
+	}
+	.menu ul{
+		top: 0%;
+		left: 100%;
+		width: 100px;
+		box-shadow: 0px 0px 20px 5px black;
+	}
+	.todopage{
+		flex-direction: column-reverse;
+		padding: 20px;
+	}
+	
+	.per{
+		flex-direction: column-reverse;
+	}
+	.per *{
+		margin: 20px;
+	}
+	.daysdiv{
+		flex-direction: column;
+		width: 90vw;
+	}
+	.progstyle{
+		width: 70vw;
+		padding: 0;
+	}
+	.notes{
+		flex-direction: column;
+	}
+	.write{
+		width: 95%;
+	}
+	
+}

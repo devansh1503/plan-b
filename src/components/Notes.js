@@ -7,7 +7,7 @@ function Notes() {
     display:"flex"
   }
   return (
-    <div style={style}>
+    <div className='notes' style={style}>
       <Writenotes></Writenotes>
       <Drawing></Drawing>
     </div>

@@ -48,7 +48,7 @@ function Todolist(props) {
     await axios.post('https://todo-api-pi-silk.vercel.app/todo/addnew', data)
   }
   return (
-    <div style={{ display: "flex", alignItems: "center", marginTop: "40px", justifyContent: "center" }}>
+    <div className='todopage' style={{ display: "flex", alignItems: "center", marginTop: "40px", justifyContent: "center" }}>
       <div style={addForm}>
         <h2 style={{ color: "rgb(54, 54, 54);" }}>Add A Task ✨</h2>
         <form>

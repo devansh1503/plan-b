@@ -15,7 +15,7 @@ function Performance() {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop:'3%'
+    marginTop: '3%'
   }
   const weekstl = {
     width: `${data[0]} %`,
@@ -34,48 +34,50 @@ function Performance() {
     else return "Well Done! You are the Gangster!!🔥😎"
   }
   return (
-    <div style={percss}>
-      <div className='Daily'>
-        <div className='day'>
-          <h1>🎆 DAY 1</h1>
-          <Progress width={data[1]}></Progress>
-        </div>
+    <div className='per' style={percss}>
+      <div className='daysdiv' style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <div className='Daily'>
+          <div className='day'>
+            <h1>🎆 DAY 1</h1>
+            <Progress width={data[1]}></Progress>
+          </div>
 
-        <div className='day'>
-          <h1>🎃 DAY 2</h1>
-          <Progress width={data[2]}></Progress>
-        </div>
+          <div className='day'>
+            <h1>🎃 DAY 2</h1>
+            <Progress width={data[2]}></Progress>
+          </div>
 
-        <div className='day'>
-          <h1>🦁 DAY 3</h1>
-          <Progress width={data[3]}></Progress>
-        </div>
+          <div className='day'>
+            <h1>🦁 DAY 3</h1>
+            <Progress width={data[3]}></Progress>
+          </div>
 
-        <div className='day'>
-          <h1>🍕 DAY 4</h1>
-          <Progress width={data[4]}></Progress>
+          <div className='day'>
+            <h1>🍕 DAY 4</h1>
+            <Progress width={data[4]}></Progress>
+          </div>
         </div>
-      </div>
-      <div>
-        <div className='day'>
-          <h1>🌭 DAY 5</h1>
-          <Progress width={data[5]}></Progress>
-        </div>
+        <div>
+          <div className='day'>
+            <h1>🌭 DAY 5</h1>
+            <Progress width={data[5]}></Progress>
+          </div>
 
-        <div className='day'>
-          <h1>⚡ DAY 6</h1>
-          <Progress width={data[6]}></Progress>
-        </div>
+          <div className='day'>
+            <h1>⚡ DAY 6</h1>
+            <Progress width={data[6]}></Progress>
+          </div>
 
-        <div className='day'>
-          <h1>🌟 DAY 7</h1>
-          <Progress width={data[7]}></Progress>
+          <div className='day'>
+            <h1>🌟 DAY 7</h1>
+            <Progress width={data[7]}></Progress>
+          </div>
         </div>
       </div>
 
       <div className='Weekly'>
-        <h1 style={{color:'rgb(255, 176, 30)'}}>Weekly Performance-</h1>
-        <h1 style={{ color: 'orange', fontSize:'50px' }}>{Math.round(data[0])}%</h1>
+        <h1 style={{ color: 'rgb(255, 176, 30)' }}>Weekly Performance-</h1>
+        <h1 style={{ color: 'orange', fontSize: '50px' }}>{Math.round(data[0])}%</h1>
         <div style={{ color: 'rgb(255, 176, 30)', fontSize: '35px' }}>{message()}</div>
       </div>
     </div>

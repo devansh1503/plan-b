@@ -50,7 +50,7 @@ function Drawing() {
         borderRadius:"25px"
     }
     return (
-        <div style={{ width: "50%", padding: "1%" }}>
+        <div className='draw' style={{padding: "1%" }}>
             <div>
                 <h2 style={{color:"white"}}>Draw</h2>
             </div>
