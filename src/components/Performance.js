@@ -4,10 +4,13 @@ import Progress from './Progress'
 
 function Performance() {
   const [data, setData] = useState([])
+  const [load, setLoad] = useState(true)
   useEffect(() => {
     async function getdata() {
-      const d = await axios.get('https://todo-api-pi-silk.vercel.app/todo/perform')
-      setData(d.data)
+      await axios.get('https://todo-api-pi-silk.vercel.app/todo/perform').then((res)=>{
+        setData(res.data)
+        setLoad(false)
+      })
     }
     getdata()
   }, [])
@@ -35,7 +38,8 @@ function Performance() {
   }
   return (
     <div className='per' style={percss}>
-      <div className='daysdiv' style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+      {load && <div className='loader-5 center'></div>}
+      {!load && <div className='daysdiv' style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
         <div className='Daily'>
           <div className='day'>
             <h1>🎆 DAY 1</h1>
@@ -73,13 +77,13 @@ function Performance() {
             <Progress width={data[7]}></Progress>
           </div>
         </div>
-      </div>
+      </div>}
 
-      <div className='Weekly'>
+      {!load && <div className='Weekly'>
         <h1 style={{ color: 'rgb(255, 176, 30)' }}>Weekly Performance-</h1>
         <h1 style={{ color: 'orange', fontSize: '50px' }}>{Math.round(data[0])}%</h1>
         <div style={{ color: 'rgb(255, 176, 30)', fontSize: '35px' }}>{message()}</div>
-      </div>
+      </div>}
     </div>
   )
 }

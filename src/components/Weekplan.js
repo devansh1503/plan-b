@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function Weekplan() {
     const[goals, setGoal] = useState([])
     const[load, setLoad] = useState(false)
+    const[loadsub, setLoadsub] = useState(false)
     const[done, setDone] = useState(false)
     const history = useNavigate()
     const goal = useRef()
@@ -55,21 +56,24 @@ function Weekplan() {
             'time':time.current.value,
         }
         async function postdata(){
+            setLoadsub(true)
             await axios.post('https://todo-api-pi-silk.vercel.app/goals',newdata)
+            setLoadsub(false)
+            
         }
         postdata()
     }
     const createtodo = ()=>{
-        
+        setLoad(true)
         async function createtodolist(){
-            await axios.get('https://todo-api-pi-silk.vercel.app/createtodo')
+            await axios.get('http://localhost:6969/createtodo').then((res)=>{
+                console.log(res.data)
+                setLoad(false)
+                setDone(true)
+            })
         }
         createtodolist()
-        setLoad(true)
-        setTimeout(()=>{
-            setLoad(false)
-            setDone(true)
-        },2000)
+        
         
         // history('/todo')
     }
@@ -100,7 +104,10 @@ function Weekplan() {
                             <input type='radio' idName='3stp' value='3' name='priority' onClick={()=>{priority=3}}></input>
                             <label for='3stp'>3rd Priority</label>
                         </div> */}
-                        <input type='submit' className='but' onClick={postreq}></input>
+                        <div>
+                            <input type='submit' className='but' onClick={postreq}></input>
+                            {loadsub && <div className='loader-5 center'></div>}
+                        </div>
                     </form>
                 </div>
             </div>
