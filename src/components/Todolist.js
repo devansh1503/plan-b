@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 function Todolist(props) {
@@ -20,14 +20,14 @@ function Todolist(props) {
     }
     fetchTodo()
   },[day])
-  // useEffect(()=>{
-  //   async function fetchTodo(){
-  //     await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res)=>{
-  //       setRes(res.data)
-  //     })
-  //   }
-  //   fetchTodo()
-  // },[res])
+  const call = useCallback(()=>{
+    async function fetchTodo(){
+      await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res)=>{
+        setRes(res.data)
+      })
+    }
+    fetchTodo()
+  },[])
   const addForm = {
     display: "flex",
     flexDirection: "column",
@@ -82,10 +82,14 @@ function Todolist(props) {
             {res.map((item)=>{
               return <tr>
                 <td>{item.status?<div style={{cursor:'pointer'}} onClick={async()=>{
-                  await axios.get(`http://localhost:6969/changestatus/${item._id}`)
+                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatus/${item._id}`).then(()=>{
+                    call()
+                  })
                   console.log('Clicked True')
                 }}>👍</div>:<div style={{cursor:'pointer'}} onClick={async()=>{
-                  await axios.get(`http://localhost:6969/changestatuscross/${item._id}`)
+                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatuscross/${item._id}`).then(()=>{
+                    call()
+                  })
                   console.log('clicked false')
                 }}>❌</div>}</td>
                 <td>
@@ -96,7 +100,9 @@ function Todolist(props) {
                 <td><div>📝</div></td>
                 <td><div style={{cursor:'pointer'}} onClick={
                   async() =>{
-                    await axios.post('http://localhost:6969/todo/delete', item)
+                    await axios.post('https://todo-api-pi-silk.vercel.app/todo/delete', item).then(()=>{
+                      call()
+                    })
                   }
                 }>🗑️</div></td>
               </tr>
