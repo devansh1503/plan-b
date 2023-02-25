@@ -66,7 +66,7 @@ function Weekplan() {
     const createtodo = ()=>{
         setLoad(true)
         async function createtodolist(){
-            await axios.get('https://todo-api-pi-silk.vercel.app/createtodo').then((res)=>{
+            await axios.get('http://localhost:6969/createtodo').then((res)=>{
                 console.log(res.data)
                 setLoad(false)
                 setDone(true)

@@ -82,10 +82,10 @@ function Todolist(props) {
             {res.map((item)=>{
               return <tr>
                 <td>{item.status?<div style={{cursor:'pointer'}} onClick={async()=>{
-                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatus/${item.id}`)
+                  await axios.get(`http://localhost:6969/changestatus/${item._id}`)
                   console.log('Clicked True')
                 }}>👍</div>:<div style={{cursor:'pointer'}} onClick={async()=>{
-                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatuscross/${item.id}`)
+                  await axios.get(`http://localhost:6969/changestatuscross/${item._id}`)
                   console.log('clicked false')
                 }}>❌</div>}</td>
                 <td>
@@ -96,7 +96,7 @@ function Todolist(props) {
                 <td><div>📝</div></td>
                 <td><div style={{cursor:'pointer'}} onClick={
                   async() =>{
-                    await axios.get(`https://todo-api-pi-silk.vercel.app/todo/delete/${item.id}`)
+                    await axios.post('http://localhost:6969/todo/delete', item)
                   }
                 }>🗑️</div></td>
               </tr>
