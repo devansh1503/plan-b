@@ -3,10 +3,13 @@ import React, { useEffect, useState } from 'react'
 
 function Backlog() {
   const [res, setRes] = useState([])
+  const [load, setLoad] = useState(true)
   useEffect(()=>{
     async function fetchdata(){
-      const response = await axios.get('https://todo-api-pi-silk.vercel.app/todo/backlog')
-      setRes(response.data)
+      await axios.get('https://todo-api-pi-silk.vercel.app/todo/backlog').then((res)=>{
+        setRes(res.data)
+        setLoad(false)
+      })
     }
     fetchdata()
   },[])
@@ -28,7 +31,8 @@ function Backlog() {
   }
   return (
     <div style={pagestyle}>
-      <div className='todolist' style={todolist}>
+      {load && <div className='loader-5 center'></div>}
+      {!load && <div className='todolist' style={todolist}>
         <h1>Let's Be Done with this mate!😯</h1>
           <table>
             <tr>
@@ -47,7 +51,7 @@ function Backlog() {
               </tr>
             })}
           </table>
-        </div>
+        </div>}
     </div>
   )
 }

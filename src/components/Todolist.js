@@ -5,18 +5,29 @@ import { useNavigate } from 'react-router-dom';
 function Todolist(props) {
   const day = props.day
   const[res,setRes] = useState([]);
-  
+  const[load, setLoad] = useState(true)
   const history = useNavigate()
   const tsk = useRef()
   const des = useRef()
   const hrs = useRef()
   useEffect(()=>{
+    setLoad(true)
     async function fetchTodo(){
-      const res = await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`)
-      setRes(res.data)
+      await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res)=>{
+        setRes(res.data)
+        setLoad(false)
+      })
     }
     fetchTodo()
-  },[day, res])
+  },[day])
+  // useEffect(()=>{
+  //   async function fetchTodo(){
+  //     await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res)=>{
+  //       setRes(res.data)
+  //     })
+  //   }
+  //   fetchTodo()
+  // },[res])
   const addForm = {
     display: "flex",
     flexDirection: "column",
@@ -49,7 +60,8 @@ function Todolist(props) {
   }
   return (
     <div className='todopage' style={{ display: "flex", alignItems: "center", marginTop: "40px", justifyContent: "center" }}>
-      <div style={addForm}>
+      {load && <div className='loader-5 center'></div>}
+      {!load && <div style={addForm}>
         <h2 style={{ color: "rgb(54, 54, 54);" }}>Add A Task ✨</h2>
         <form>
           <input ref={tsk} type="text" autocomplete="off" placeholder="Enter Task" class="inp" name="tsk" />
@@ -57,8 +69,8 @@ function Todolist(props) {
           <input ref={hrs} type="text" autoComplete='off' placeholder='Enter Hours' class="inp" name="datetime" />
           <input onClick={addnew} type="submit" class="but" value="+ Add Task" />
         </form>
-      </div>
-      <div>
+      </div>}
+      {!load && <div>
         <div className='todolist' style={todolist}>
           <h2>Day {props.day}</h2>
           <table>
@@ -71,11 +83,9 @@ function Todolist(props) {
               return <tr>
                 <td>{item.status?<div style={{cursor:'pointer'}} onClick={async()=>{
                   await axios.get(`https://todo-api-pi-silk.vercel.app/changestatus/${item.id}`)
-                  history('/todo')
                   console.log('Clicked True')
                 }}>👍</div>:<div style={{cursor:'pointer'}} onClick={async()=>{
                   await axios.get(`https://todo-api-pi-silk.vercel.app/changestatuscross/${item.id}`)
-                  history('/todo')
                   console.log('clicked false')
                 }}>❌</div>}</td>
                 <td>
@@ -97,7 +107,7 @@ function Todolist(props) {
         <div style={{display:"flex", justifyContent:"space-around"}}>
           <button className='but' onClick={deleteDone}>Delete Completed Task</button>
         </div>
-      </div>
+      </div>}
     </div>
   )
 }
