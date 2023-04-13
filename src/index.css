@@ -6,9 +6,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: sans-serif;
-  background-color: #00DBDE;
-  background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%);
+  /* background-image: linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%); */
+  background-color:#282c34;
   
+
 }
 .but {
   background-color: purple;
@@ -126,7 +127,40 @@ a{
 .toggle:focus ~ .list .list-item {
   transform: translateX(0);
 } */
-
+.signup{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 70vh;
+}
+.register{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 30px;
+	background-image: linear-gradient(to right, rgb(96, 96, 255), rgb(0, 153, 255));
+	border-top-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	margin-left: 30px;
+	transition: all 0.5s ease-in-out;
+}
+.register input{
+	border: none;
+	background-color: rgb(58, 58, 58);
+	color: white;
+	font-size: 23px;
+	margin: 10px;
+	padding: 10px;
+}
+.register button{
+	border: none;
+	font-size: 25px;
+	color: white;
+	padding: 10px;
+	background-color: rgb(98, 0, 255);
+	border-radius: 25px;
+}
 .loader-5 {
 	height: 32px;
 	width: 32px;

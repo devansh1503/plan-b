@@ -7,7 +7,7 @@ function Performance() {
   const [load, setLoad] = useState(true)
   useEffect(() => {
     async function getdata() {
-      await axios.get('https://todo-api-pi-silk.vercel.app/todo/perform').then((res)=>{
+      await axios.get('http://localhost:6969/todo/perform').then((res)=>{
         setData(res.data)
         setLoad(false)
       })

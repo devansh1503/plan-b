@@ -2,18 +2,29 @@ import React, { useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-function Weekplan() {
-    const[goals, setGoal] = useState([])
-    const[load, setLoad] = useState(false)
-    const[loadsub, setLoadsub] = useState(false)
-    const[done, setDone] = useState(false)
+function Weekplan(props) {
     const history = useNavigate()
+    async function checkcookie() {
+        await axios.get("http://localhost:6969/checkCookie").then((res) => {
+            if (res.data !== "exits") {
+                console.log(res.data)
+                history('/signup')
+            }
+        })
+    }
+    useEffect(() => {
+        checkcookie()
+    }, [])
+    const [goals, setGoal] = useState([])
+    const [load, setLoad] = useState(false)
+    const [loadsub, setLoadsub] = useState(false)
+    const [done, setDone] = useState(false)
     const goal = useRef()
     const time = useRef()
     const subtask = useRef()
-    useEffect(()=>{
-        async function getdata(){
-            const res = await axios.get('https://todo-api-pi-silk.vercel.app/goals')
+    useEffect(() => {
+        async function getdata() {
+            const res = await axios.get('http://localhost:6969/goals')
             setGoal(res.data)
         }
         getdata()
@@ -30,12 +41,12 @@ function Weekplan() {
         alignItems: 'center',
     }
     const imgcss = {
-        width:'40px'
+        width: '40px'
     }
     const bottomcss = {
-        margin:'30px',
-        display:'flex',
-        alignItems:'center'
+        margin: '30px',
+        display: 'flex',
+        alignItems: 'center'
     }
     const goalcss = {
         padding: "25px 25px",
@@ -46,35 +57,36 @@ function Weekplan() {
         justifyContent: 'center',
         alignItems: 'center',
     }
-    const postreq = (event) =>{
+    const postreq = (event) => {
         event.preventDefault()
         const subtsk = subtask.current.value.split(',')
         const newdata = {
-            'id':goals.length+1,
-            'goal':goal.current.value,
-            'subtasks':subtsk,
-            'time':time.current.value,
+            'id': goals.length + 1,
+            'goal': goal.current.value,
+            'subtasks': subtsk,
+            'time': time.current.value,
+            'userId': props.userData._id,
         }
-        async function postdata(){
+        async function postdata() {
             setLoadsub(true)
-            await axios.post('https://todo-api-pi-silk.vercel.app/goals',newdata)
+            await axios.post('http://localhost:6969/goals', newdata)
             setLoadsub(false)
-            
+
         }
         postdata()
     }
-    const createtodo = ()=>{
+    const createtodo = () => {
         setLoad(true)
-        async function createtodolist(){
-            await axios.get('https://todo-api-pi-silk.vercel.app/createtodo').then((res)=>{
+        async function createtodolist() {
+            await axios.get('http://localhost:6969/createtodo').then((res) => {
                 console.log(res.data)
                 setLoad(false)
                 setDone(true)
             })
         }
         createtodolist()
-        
-        
+
+
         // history('/todo')
     }
     return (
@@ -120,13 +132,13 @@ function Weekplan() {
                     </tr>
                     {
                         goals.map((item) => {
-                            if(item===null) return <tr></tr>
+                            if (item === null) return <tr></tr>
                             return <tr>
                                 <td>{item.goal}</td>
                                 <td>{item.time}</td>
-                                <td><button className='but' onClick={()=>{
-                                    async function deleteitem(){
-                                        await axios.get(`https://todo-api-pi-silk.vercel.app/goals/delete/${item.id}`)
+                                <td><button className='but' onClick={() => {
+                                    async function deleteitem() {
+                                        await axios.get(`http://localhost:6969/goals/delete/${item.id}`)
                                     }
                                     deleteitem()
                                 }}>🗑️ Delete</button></td>
@@ -136,8 +148,8 @@ function Weekplan() {
                 </table>
             </div>
             <div style={bottomcss}>
-                <button onClick={createtodo} className='but' style={{backgroundColor:"gold", color:"black"}}>✨Generate Todo Lists For The Week✨</button>
-                {load &&<div className='loader-5 center'></div>}
+                <button onClick={createtodo} className='but' style={{ backgroundColor: "gold", color: "black" }}>✨Generate Todo Lists For The Week✨</button>
+                {load && <div className='loader-5 center'></div>}
                 {done && <img style={imgcss} src='https://cdn-icons-png.flaticon.com/512/7799/7799536.png'></img>}
             </div>
         </div >

@@ -9,16 +9,16 @@ function Navbar(props) {
     const onBurger = () => {
         if (!bool) {
             setStl({
-                display:"flex",
-                position:'absolute',
-                backgroundColor:'#282c34',
-                top:"70px",
-                left:"1%",
-                borderBottomLeftRadius:"25px",
-                boxShadow:"0px 0px 15px 5px black"
+                display: "flex",
+                position: 'absolute',
+                backgroundColor: '#282c34',
+                top: "70px",
+                left: "1%",
+                borderBottomLeftRadius: "25px",
+                boxShadow: "0px 0px 15px 5px black"
             })
         }
-        else{
+        else {
             setStl({})
         }
         setBool(!bool)
@@ -27,8 +27,8 @@ function Navbar(props) {
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        backgroundColor: "#282c34",
-        color: "#00DBDE",
+        backgroundImage: "linear-gradient(90deg, #00DBDE 0%, #FC00FF 100%)",
+        color: "#282c34",
         position: "sticky",
         top: "0%",
         padding: "15px"
@@ -40,14 +40,14 @@ function Navbar(props) {
     }
     const linkstyle = {
         textDecoration: "none",
-        color: "#FC00FF",
+        color: "white",
         marginRight: "30px",
         fontSize: "18px"
     }
     const dropd = {
-        backgroundColor: "#282c34",
+        backgroundColor: "rgb(252,0,252)",
         listStyleType: "none",
-        display: (drop ? "block" : "none")
+        display: (drop ? "block" : "none"),
     }
 
     return (
@@ -86,6 +86,12 @@ function Navbar(props) {
                     <li>
                         <Link to='/notes' style={linkstyle}>Notes</Link>
                     </li>
+                    {
+                        props.isLoggedIn &&
+                        <li>
+                            <div style={linkstyle}>{props.userData.name}</div>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
