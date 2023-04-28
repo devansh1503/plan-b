@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useOnDraw } from './Hooks';
 import CreateIcon from '@mui/icons-material/Create';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
@@ -7,7 +7,8 @@ function Drawing() {
     const[erase, setErase] = useState(false)
     const {
         setCanvasRef,
-        onCanvasMouseDown
+        onCanvasMouseDown,
+        screenshot,
     } = useOnDraw(onDraw);
     function onDraw(ctx, point, prevPoint) {
         drawLine(prevPoint, point, ctx, (erase)?'white':'#000000', (erase)?50:5);
@@ -65,7 +66,9 @@ function Drawing() {
             <div>
                 <button onClick={()=>{setErase(true)}} style={{background:"none",border:"none"}}><div style={icstyle}><img style={{width:'30px'}} src='https://cdn-icons-png.flaticon.com/512/979/979773.png'></img></div></button>
                 <button onClick={()=>{setErase(false)}} style={{background:"none",border:"none"}}><div style={imstyle}><img style={{marginLeft:'40px',width:'40px'}} src='https://icons.iconarchive.com/icons/paomedia/small-n-flat/1024/pencil-icon.png'></img></div></button>
-                
+                <button style={{fontSize:'40px', background:'none', border:'none', marginLeft:'20px', cursor:'pointer'}} onClick={()=>{
+                    screenshot()
+                }}>📸</button>
             </div>
         </div>
     )

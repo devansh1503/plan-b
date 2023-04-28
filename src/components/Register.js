@@ -28,14 +28,17 @@ function Register(props) {
       const data = {
         name:name.current.value,
         email:email.current.value,
-        password:password.current.value
+        password:password.current.value,
+        score:0,
+        imgurl:"",
+        rewardCollected:false,
       }
       if(data.name==='' || data.email==='' || data.password===''){
         setIncomplete(true)
         return;
       }
       console.log(data);
-      await axios.post("http://localhost:6969/signup",data).then((res)=>{
+      await axios.post("https://todo-api-pi-silk.vercel.app/signup",data).then((res)=>{
         console.log(res.data)
         props.setUserData(res.data)
       })
@@ -48,13 +51,15 @@ function Register(props) {
         email:email2.current.value,
         password:password2.current.value
       }
-      await axios.post("http://localhost:6969/login",data).then((res)=>{
+      await axios.post("https://todo-api-pi-silk.vercel.app/login",data).then((res)=>{
         console.log(res.data)
         if(res.data==="not found"){
           setFound(true);
           return;
         }
         else {
+          localStorage.setItem("email",email2.current.value)
+          localStorage.setItem("password",password2.current.value)
           props.setUserData(res.data)
           props.setLoggedIn(true)
           history('/')

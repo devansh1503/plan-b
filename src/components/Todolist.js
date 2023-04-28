@@ -13,7 +13,7 @@ function Todolist(props) {
   useEffect(() => {
     setLoad(true)
     async function fetchTodo() {
-      await axios.get(`http://localhost:6969/todo/${day}`).then((res) => {
+      await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res) => {
         setRes(res.data)
         setLoad(false)
       })
@@ -22,7 +22,7 @@ function Todolist(props) {
   }, [day])
   const call = useCallback(() => {
     async function fetchTodo() {
-      await axios.get(`http://localhost:6969/todo/${day}`).then((res) => {
+      await axios.get(`https://todo-api-pi-silk.vercel.app/todo/${day}`).then((res) => {
         setRes(res.data)
       })
     }
@@ -44,7 +44,7 @@ function Todolist(props) {
     overflow: "auto"
   }
   const deleteDone = async () => {
-    await axios.get('http://localhost:6969/todo/deletedone')
+    await axios.get('https://todo-api-pi-silk.vercel.app/todo/deletedone')
   }
   const addnew = async (event) => {
     event.preventDefault()
@@ -56,7 +56,7 @@ function Todolist(props) {
       hrs: hrs.current.value,
       day: props.day
     }
-    await axios.post('http://localhost:6969/todo/addnew', data)
+    await axios.post('https://todo-api-pi-silk.vercel.app/todo/addnew', data)
   }
   return (
     <div className='todopage' style={{ display: "flex", alignItems: "center", marginTop: "40px", justifyContent: "center" }}>
@@ -82,12 +82,12 @@ function Todolist(props) {
             {res.map((item) => {
               return <tr>
                 <td>{item.status ? <div style={{ cursor: 'pointer' }} onClick={async () => {
-                  await axios.get(`http://localhost:6969/changestatus/${item._id}`).then(() => {
+                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatus/${item._id}`).then(() => {
                     call()
                   })
                   console.log('Clicked True')
                 }}>👍</div> : <div style={{ cursor: 'pointer' }} onClick={async () => {
-                  await axios.get(`http://localhost:6969/changestatuscross/${item._id}`).then(() => {
+                  await axios.get(`https://todo-api-pi-silk.vercel.app/changestatuscross/${item._id}`).then(() => {
                     call()
                   })
                   console.log('clicked false')
@@ -100,7 +100,7 @@ function Todolist(props) {
                 <td><div>📝</div></td>
                 <td><div style={{ cursor: 'pointer' }} onClick={
                   async () => {
-                    await axios.post('http://localhost:6969/todo/delete', item).then((res) => {
+                    await axios.post('https://todo-api-pi-silk.vercel.app/todo/delete', item).then((res) => {
                       console.log(res.data)
                       call()
                     })

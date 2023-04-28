@@ -31,7 +31,8 @@ function Navbar(props) {
         color: "#282c34",
         position: "sticky",
         top: "0%",
-        padding: "15px"
+        padding: "15px",
+        zIndex:'1000'
     }
     const ulstyle = {
         listStyleType: "none",
@@ -81,15 +82,12 @@ function Navbar(props) {
                         <Link to='/backlog' style={linkstyle}>BackLog</Link>
                     </li>
                     <li>
-                        <Link to='/performance' style={linkstyle}>Performance</Link>
-                    </li>
-                    <li>
-                        <Link to='/notes' style={linkstyle}>Notes</Link>
+                        <Link to='/yournotes' style={linkstyle}>Notes</Link>
                     </li>
                     {
                         props.isLoggedIn &&
                         <li>
-                            <div style={linkstyle}>{props.userData.name}</div>
+                            <Link to='/profile' style={{...linkstyle,fontSize:'26px', color:'purple'}}>{props.userData.name}</Link>
                         </li>
                     }
                 </ul>

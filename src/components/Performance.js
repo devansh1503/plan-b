@@ -2,23 +2,30 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import Progress from './Progress'
 
-function Performance() {
+function Performance(props) {
   const [data, setData] = useState([])
   const [load, setLoad] = useState(true)
+  const [reward, setReward] = useState(props.userdata.rewardCollected)
   useEffect(() => {
     async function getdata() {
-      await axios.get('http://localhost:6969/todo/perform').then((res)=>{
+      await axios.get('https://todo-api-pi-silk.vercel.app//todo/perform').then((res) => {
         setData(res.data)
         setLoad(false)
       })
     }
     getdata()
   }, [])
+
+  async function addreward() {
+    await axios.post('https://todo-api-pi-silk.vercel.app//score', {score:25});
+    await axios.get('https://todo-api-pi-silk.vercel.app/reward')
+    props.setUserData({...props.userdata, score:props.userdata.score+25, rewardCollected:true})
+    setReward(true)
+  }
   const percss = {
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
-    marginTop: '3%'
   }
   const weekstl = {
     width: `${data[0]} %`,
@@ -39,7 +46,7 @@ function Performance() {
   return (
     <div className='per' style={percss}>
       {load && <div className='loader-5 center'></div>}
-      {!load && <div className='daysdiv' style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+      {!load && <div className='daysdiv' style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div className='Daily'>
           <div className='day'>
             <h1>🎆 DAY 1</h1>
@@ -83,6 +90,9 @@ function Performance() {
         <h1 style={{ color: 'rgb(255, 176, 30)' }}>Weekly Performance-</h1>
         <h1 style={{ color: 'orange', fontSize: '50px' }}>{Math.round(data[0])}%</h1>
         <div style={{ color: 'rgb(255, 176, 30)', fontSize: '35px' }}>{message()}</div>
+        {
+          (Math.round(data[0]) >= 75 && !reward) ? <button onClick={addreward} className='reward bounce'>🎊Reward</button> : <div></div>
+        }
       </div>}
     </div>
   )

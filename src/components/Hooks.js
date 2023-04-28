@@ -68,9 +68,21 @@ export function useOnDraw(onDraw) {
 
     }, [onDraw]);
 
+    function screenshot() {
+        canvasRef.current.toBlob((blob) => {
+            console.log(blob)
+            var imgURL = window.URL.createObjectURL(blob);
+            var tempLink = document.createElement('a');
+            tempLink.href = imgURL;
+            tempLink.setAttribute('download', 'screenshot.png');
+            tempLink.click();
+        })
+    }
+
     return {
         setCanvasRef,
-        onCanvasMouseDown
+        onCanvasMouseDown,
+        screenshot,
     }
 
 };
