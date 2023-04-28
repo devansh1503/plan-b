@@ -8,7 +8,7 @@ function Performance(props) {
   const [reward, setReward] = useState(props.userdata.rewardCollected)
   useEffect(() => {
     async function getdata() {
-      await axios.get('https://todo-api-pi-silk.vercel.app//todo/perform').then((res) => {
+      await axios.get('https://todo-api-pi-silk.vercel.app/todo/perform').then((res) => {
         setData(res.data)
         setLoad(false)
       })
@@ -17,7 +17,7 @@ function Performance(props) {
   }, [])
 
   async function addreward() {
-    await axios.post('https://todo-api-pi-silk.vercel.app//score', {score:25});
+    await axios.post('https://todo-api-pi-silk.vercel.app/score', {score:25});
     await axios.get('https://todo-api-pi-silk.vercel.app/reward')
     props.setUserData({...props.userdata, score:props.userdata.score+25, rewardCollected:true})
     setReward(true)
