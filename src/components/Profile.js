@@ -25,7 +25,7 @@ function Profile(props) {
     const dat = await response.json();
     setUrl(dat.url)
     props.setUserData({...props.userdata, imgurl:dat.url})
-    await axios.post("https://todo-api-pi-silk.vercel.app/image", { url: dat.url })
+    await axios.post("http://localhost:6969/image", { url: dat.url })
   }
   const editimg={
     width:'50px',

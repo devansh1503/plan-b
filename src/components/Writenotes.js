@@ -39,7 +39,7 @@ function Writenotes(props) {
       content:content.current.value,
       userName: props.userData.name,
     }
-    await axios.post('https://todo-api-pi-silk.vercel.app/notes', data).then((res)=>{
+    await axios.post('http://localhost:6969/notes', data).then((res)=>{
       setUpload(true);
     })
   }

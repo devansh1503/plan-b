@@ -8,21 +8,21 @@ function YourNotes() {
   const search = useRef()
   const call = useCallback(() => {
     (async function () {
-      await axios.get('https://todo-api-pi-silk.vercel.app/notes').then((res) => {
+      await axios.get('http://localhost:6969/notes').then((res) => {
         setData(res.data)
       })
     })()
   }, [])
   useEffect(() => {
     (async function () {
-      await axios.get('https://todo-api-pi-silk.vercel.app/notes').then((res) => {
+      await axios.get('http://localhost:6969/notes').then((res) => {
         setData(res.data)
       })
     })()
   }, [])
 
   async function searchdata() {
-    await axios.get(`https://todo-api-pi-silk.vercel.app/searchnotes/?search=${search.current.value}`).then((res) => {
+    await axios.get(`http://localhost:6969/searchnotes/?search=${search.current.value}`).then((res) => {
       setData(res.data)
     })
   }

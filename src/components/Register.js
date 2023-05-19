@@ -38,7 +38,7 @@ function Register(props) {
         return;
       }
       console.log(data);
-      await axios.post("https://todo-api-pi-silk.vercel.app/signup",data).then((res)=>{
+      await axios.post("http://localhost:6969/signup",data).then((res)=>{
         console.log(res.data)
         props.setUserData(res.data)
       })
@@ -51,7 +51,7 @@ function Register(props) {
         email:email2.current.value,
         password:password2.current.value
       }
-      await axios.post("https://todo-api-pi-silk.vercel.app/login",data).then((res)=>{
+      await axios.post("http://localhost:6969/login",data).then((res)=>{
         console.log(res.data)
         if(res.data==="not found"){
           setFound(true);

@@ -6,8 +6,8 @@ function Weekplan(props) {
     const history = useNavigate()
     async function checkcookie() {
         axios.defaults.withCredentials = true
-        await axios.get("https://todo-api-pi-silk.vercel.app/checkCookie").then((res) => {
-            if (!props.isLoggedIn && res.data !== "exits") {
+        await axios.get("http://localhost:6969/checkCookie").then((res) => {
+            if (res.data !== "exits") {
                 console.log(res.data)
                 history('/signup')
             }
@@ -17,7 +17,7 @@ function Weekplan(props) {
                         email: localStorage.getItem("email"),
                         password: localStorage.getItem("password")
                     }
-                    await axios.post("https://todo-api-pi-silk.vercel.app/login", data).then((res) => {
+                    await axios.post("http://localhost:6969/login", data).then((res) => {
                         props.setUserData(res.data)
                         props.setLoggedIn(true)
                     })
@@ -37,7 +37,7 @@ function Weekplan(props) {
             const time = useRef()
             const subtask = useRef()
             async function getdata() {
-                const res = await axios.get('https://todo-api-pi-silk.vercel.app/goals')
+                const res = await axios.get('http://localhost:6969/goals')
                 setGoal(res.data)
             }
             const call = useCallback(() => {
@@ -86,7 +86,7 @@ function Weekplan(props) {
                 }
                 async function postdata() {
                     setLoadsub(true)
-                    await axios.post('https://todo-api-pi-silk.vercel.app/goals', newdata)
+                    await axios.post('http://localhost:6969/goals', newdata)
                     setLoadsub(false)
                 }
                 postdata()
@@ -94,7 +94,7 @@ function Weekplan(props) {
             const createtodo = () => {
                 setLoad(true)
                 async function createtodolist() {
-                    await axios.get('https://todo-api-pi-silk.vercel.app/createtodo').then((res) => {
+                    await axios.get('http://localhost:6969/createtodo').then((res) => {
                         console.log(res.data)
                         setLoad(false)
                         setDone(true)
@@ -154,7 +154,7 @@ function Weekplan(props) {
                                         <td>{item.time}</td>
                                         <td><button className='but' onClick={() => {
                                             async function deleteitem() {
-                                                await axios.get(`https://todo-api-pi-silk.vercel.app/goals/delete/${item.id}`)
+                                                await axios.get(`http://localhost:6969/goals/delete/${item.id}`)
                                             }
                                             deleteitem()
                                         }}>🗑️ Delete</button></td>
